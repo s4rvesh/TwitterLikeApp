@@ -7,12 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//Users data
-/*type user struct {
-	name  string
-	email string
-}*/
-
 //GetUser gets the users with specified name
 func GetUser(c *gin.Context) {
 
