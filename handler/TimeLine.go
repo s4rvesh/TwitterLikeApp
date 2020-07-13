@@ -37,8 +37,8 @@ func TimeLine(c *gin.Context) {
 	}
 
 	for results.Next() {
-		var follows Followers
 
+		var follows Followers
 		err = results.Scan(&follows.uid, &follows.fid)
 
 		if err != nil {
@@ -48,7 +48,7 @@ func TimeLine(c *gin.Context) {
 		fmt.Print(follows.uid)
 		fmt.Print(follows.fid)
 
-		getTweets, err := db.Query("SELECT data FROM Tweets WHERE uid=?", follows.fid)
+		getTweets, err := db.Query("SELECT data, tid, uid FROM tweets WHERE uid=?", follows.fid)
 
 		if err != nil {
 			panic(err.Error())
