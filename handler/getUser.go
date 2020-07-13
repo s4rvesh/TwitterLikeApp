@@ -26,18 +26,18 @@ func GetUser(c *gin.Context) {
 	for results.Next() {
 		var user Users
 
-		err = results.Scan(&user.name, &user.email)
+		err = results.Scan(&user.Name, &user.Email)
 
 		if err != nil {
 			panic(err.Error())
 		}
 
-		fmt.Print(user.name)
-		fmt.Print(user.email)
+		fmt.Print(user.Name)
+		fmt.Print(user.Email)
 
 		c.JSON(200, gin.H{
-			"name":  user.name,
-			"email": user.email,
+			"name":  user.Name,
+			"email": user.Email,
 		})
 	}
 
