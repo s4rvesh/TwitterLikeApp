@@ -10,26 +10,26 @@ import (
 
 func main() {
 
-	fmt.Println("Hello")
+	fmt.Println("Starting Twitter like APi")
 
 	r := gin.Default()
 
 	r.GET("/", handler.Homepage)
 
-	authorized := r.Group("/", gin.BasicAuth(gin.Accounts{
-		"uss": "pass",
-	}))
+	// authorized := r.Group("/", gin.BasicAuth(gin.Accounts{
+	// 	"uss": "pass",
+	// }))
 
-	authorized.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"secret": "The secret ingredient to the BBQ sauce is stiring it in an old whiskey barrel.",
-		})
-	})
+	// authorized.GET("/", func(c *gin.Context) {
+	// 	c.JSON(200, gin.H{
+	// 		"secret": "The secret ingredient to the BBQ sauce is stiring it in an old whiskey barrel.",
+	// 	})
+	// })
 
-	r.POST("/CreateUser", handler.CreateUser)  //JSON POST
-	r.GET("/TimeLine/:uid", handler.TimeLine)  //URL Parameter
 	r.GET("/GetUser/:name", handler.GetUser)   //URL Parameter
+	r.GET("/TimeLine/:uid", handler.TimeLine)  //URL Parameter
 	r.POST("/FollowUser/", handler.FollowUser) //URL Query
+	r.POST("/CreateUser", handler.CreateUser)  //JSON POST
 
 	r.Run()
 
