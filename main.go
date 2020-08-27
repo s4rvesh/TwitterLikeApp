@@ -14,23 +14,23 @@ func main() {
 
 	r := gin.Default()
 
-	r.GET("/", handler.Homepage)
+	//r.GET("/", handler.Homepage)
 
-	// authorized := r.Group("/", gin.BasicAuth(gin.Accounts{
-	// 	"uss": "pass",
-	// }))
+	authorized := r.Group("/", gin.BasicAuth(gin.Accounts{
+		"usr": "pass",
+	}))
 
-	// authorized.GET("/", func(c *gin.Context) {
-	// 	c.JSON(200, gin.H{
-	// 		"secret": "The secret ingredient to the BBQ sauce is stiring it in an old whiskey barrel.",
-	// 	})
-	// })
+	authorized.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"secret": "Gangadhar is  Shaktiman",
+		})
+	})
 
 	r.GET("/GetUser/:name", handler.GetUser)   //URL Parameter
 	r.GET("/TimeLine/:uid", handler.TimeLine)  //URL Parameter
 	r.POST("/FollowUser/", handler.FollowUser) //URL Query
 	r.POST("/CreateUser", handler.CreateUser)  //JSON POST
-
+	r.DELETE("/DeleteUser/:uid", handler.DeleteUser)
 	r.Run()
 
 }
