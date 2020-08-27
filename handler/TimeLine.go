@@ -1,24 +1,12 @@
 package handler
 
 import (
+	"TwitterLikeApp/model"
 	"database/sql"
 	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
-
-//Tweets data
-type Tweets struct {
-	tid  int
-	uid  int
-	data string
-}
-
-//Followers data
-type Followers struct {
-	uid int
-	fid int
-}
 
 //TimeLine shows the tweets for the people followed
 func TimeLine(c *gin.Context) {
@@ -38,17 +26,17 @@ func TimeLine(c *gin.Context) {
 
 	for results.Next() {
 
-		var follows Followers
-		err = results.Scan(&follows.uid, &follows.fid)
+		var follows model.Followers
+		err = results.Scan(&follows.Uid, &follows.Fid)
 
 		if err != nil {
 			panic(err.Error())
 		}
 
-		fmt.Print(follows.uid)
-		fmt.Print(follows.fid)
+		fmt.Print(follows.Uid)
+		fmt.Print(follows.Fid)
 
-		getTweets, err := db.Query("SELECT data, tid, uid FROM tweets WHERE uid=?", follows.fid)
+		getTweets, err := db.Query("SELECT data, tid, uid FROM tweets WHERE uid=?", follows.Fid)
 
 		if err != nil {
 			panic(err.Error())
@@ -56,18 +44,18 @@ func TimeLine(c *gin.Context) {
 
 		for getTweets.Next() {
 
-			var tweet Tweets
+			var tweet model.Tweets
 
-			err = getTweets.Scan(&tweet.data, &tweet.tid, &tweet.uid)
+			err = getTweets.Scan(&tweet.Data, &tweet.Tid, &tweet.Uid)
 
 			if err != nil {
 				panic(err.Error())
 			}
 
 			c.JSON(200, gin.H{
-				"uid":  tweet.uid,
-				"tid":  tweet.tid,
-				"data": tweet.data,
+				"uid":  tweet.Uid,
+				"tid":  tweet.Tid,
+				"data": tweet.Data,
 			})
 
 		}

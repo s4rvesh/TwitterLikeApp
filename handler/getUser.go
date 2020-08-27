@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"TwitterLikeApp/model"
+
 	"database/sql"
 	"fmt"
 
@@ -24,7 +26,7 @@ func GetUser(c *gin.Context) {
 	}
 
 	for results.Next() {
-		var user Users
+		var user model.Users
 
 		err = results.Scan(&user.Name, &user.Email)
 

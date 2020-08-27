@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"TwitterLikeApp/model"
 	"database/sql"
 	"fmt"
 	"net/http"
@@ -8,18 +9,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Users struct {
-	Name     string `json:"Name"`
-	Email    string `json:"Email"`
-	Password string `json:"Password"`
-}
-
 //CreateUser adds a new user to system
 func CreateUser(c *gin.Context) {
 
 	fmt.Println("Endpoint Hit: Create A new User")
 
-	user := Users{}
+	user := model.Users{}
 
 	err := c.Bind(&user)
 
